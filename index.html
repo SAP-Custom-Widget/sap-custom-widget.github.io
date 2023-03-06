@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SAP Custom Widgets</title>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="SAP-Custom-Widget is a collection of custom widgets for use with SAP UI5 and Fiori applications.">
+	<meta name="keywords" content="SAP, UI5, Fiori, custom widgets">
+	<meta name="author" content="SAP-Custom-Widget">
+	<meta property="og:title" content="SAP-Custom-Widget">
+	<meta property="og:description" content="SAP-Custom-Widget is a collection of custom widgets for use with SAP UI5 and Fiori applications.">
+	<meta property="og:url" content="https://github.com/SAP-Custom-Widget">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@github">
+	<meta name="twitter:title" content="SAP-Custom-Widget">
+	<meta name="twitter:description" content="SAP-Custom-Widget is a collection of custom widgets for use with SAP UI5 and Fiori applications.">
+	<meta name="twitter:image" content="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        .card {
+            display: flex;
+        }
+        .card-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	<br>
+        <center><h1>SAP Custom Widget</h1>
+			<p>by <a target="_blank" href="https://linkedin.com/in/itsrohitchouhan">Rohit Chouhan</a></p>
+		</center>
+		<br>
+		<br>
+        <div  id="repositories">
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // make AJAX request to get data from API
+            $.getJSON('https://api.github.com/users/sap-custom-widget/repos', function(data) {
+                // iterate over each repo and add it to the page
+	
+		
+		
+                $.each(data, function(index, repo) {
+                    var fullName = repo.full_name.replace("SAP-Custom-Widget/","");
+                    var description = repo.description;
+                    //var imageUrl = repo.owner.avatar_url;
+                    var imageUrl = "https://raw.githubusercontent.com/"+repo.full_name+"/main/icon.png";
+                    // create a card for each repo
+                    var card = $('<div class="row mb-2"><div class="col-2 mb-4"><img style="width:100px;" id="myImage" src="' + imageUrl + '" ></div><div class="col-10 mb-8"><div class="card"><div class="card-body"><h5 class="card-title">' + fullName + '</h5><p class="card-text">' + description + '</p><button type="button" onclick="downloadFile(\''+fullName+'\')" class="btn btn-success"><i class="fas fa-download"></i> Download </button></div></div></div></div>');
+                    // append the card to the repositories div
+                    $('#repositories').append(card);
+                });
+							 var img = document.getElementById("myImage");
+				 img.onerror = function() {
+            // if the image fails to load, set the default image
+            img.src = defaultImageUrl;
+        }
+		
+            });
+        });
+		
+		function downloadFile(name) {
+            var link = 'https://raw.githubusercontent.com/SAP-Custom-Widget/'+name+'/main/'+name+'.json';
+			
+			 var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // create a Blob object from the response data
+                    var blob = new Blob([xhr.response], {type: "application/json"});
+                    // use FileSaver.js to save the Blob as a file
+                    saveAs(blob, name+".json");
+                }
+            };
+            // send a GET request to the download URL
+            xhr.open("GET", link);
+            xhr.responseType = "arraybuffer";
+            xhr.send();
+        }
+
+    </script>
+	<br>
+</body>
+</html>
