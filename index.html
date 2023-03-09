@@ -75,7 +75,7 @@
 			var url = "https://github.com/"+repo.full_name;
                     var imageUrl = "https://raw.githubusercontent.com/"+repo.full_name+"/main/icon.png";
                     // create a card for each repo
-                    var card = $('<div class="row mb-2"><div class="col-2 mb-4"><img style="width:100px;" id="myImage" src="' + imageUrl + '" ></div><div class="col-10 mb-8"><div class="card"><div class="card-body"><h5 class="card-title">' + fullName + '</h5><p class="card-text">' + description + '</p><button type="button" onclick="downloadFile(\''+fullName+'\')" class="btn btn-success"><i class="fas fa-download"></i> Download </button><a href="'+url+'" class="btn btn-dark">Docs</a></div></div></div></div>');
+                    var card = $('<div class="row mb-2"><div class="col-2 mb-4"><img style="width:100px;" id="myImage" src="' + imageUrl + '" ></div><div class="col-10 mb-8"><div class="card"><div class="card-body"><h5 class="card-title">' + fullName + '</h5><p class="card-text">' + description + '</p><button type="button" onclick="downloadFile(\''+fullName+'\')" class="btn btn-success"><i class="fas fa-download"></i> Download </button></br><a href="'+url+'" class="btn btn-danger">Read More</a></div></div></div></div>');
                     // append the card to the repositories div
 					if(fullName!=="sap-custom-widget.github.io"){
 					$('#repositories').append(card);
